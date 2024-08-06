@@ -25,7 +25,7 @@
             <ul>
                 <?php foreach ($credits->cast as $credit) : ?>
                     <li>
-                        <a href="credit.php?id=<?= $credit->id ?>"><?= $credit->name ?></a> as <?= $credit->character ?>
+                        <a href="<?= base_url('person/' . $credit->id) ?>"><?= $credit->name ?></a> as <?= $credit->character ?>
                     </li>
                 <?php endforeach ?>
             </ul>

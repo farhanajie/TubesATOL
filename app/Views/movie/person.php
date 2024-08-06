@@ -15,7 +15,7 @@
             <ul>
                 <?php foreach ($movies->cast as $movie) : ?>
                     <li>
-                        <a href="movie.php?id=<?= $movie->id ?>"><?= $movie->title ?> as <?= $movie->character ?></a>
+                        <a href="<?= base_url('movie/' . $movie->id) ?>"><?= $movie->title ?></a> as <?= $movie->character ?>
                     </li>
                 <?php endforeach ?>
             </ul>
