@@ -18,3 +18,6 @@ $routes->get('logout', 'User::logout');
 
 $routes->get('favorite', 'Favorite::index');
 $routes->post('favorite/add', 'Favorite::favButton');
+
+$routes->get('/profile', 'User::profile');
+$routes->post('/profile/update/', 'User::update');

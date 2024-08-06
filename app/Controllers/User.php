@@ -7,9 +7,10 @@ use App\Models\UserModel;
 class User extends BaseController
 {
     protected $user_model;
-
+    protected $helpers = [];
     public function __construct()
     {
+        helper(['form']);
         $this->user_model = new UserModel();
     }
 
@@ -76,6 +77,39 @@ class User extends BaseController
             session()->setFlashdata('errors', ['Username/password salah']);
             return redirect()->back();
         }
+    }
+
+    public function profile()
+    {
+        $data['user'] = $this->user_model->getUser(session()->username);
+        echo view('user/profile', $data);
+    }
+    public function update()
+    {
+        $username = $this->request->getPost('username');
+
+     
+            $image = $this->request->getFile('photo');
+            // random name file
+            $name = $image->getRandomName();
+          
+        
+       
+
+        $data = array(
+            'photo'              => $name,
+            'nama'               => $this->request->getPost('nama'),
+        );
+        
+        $image->move(ROOTPATH . 'public/uploads', $name);
+           
+            // update
+            $ubah = $this->user_model->updateProfile($data, $username);
+            if($ubah)
+            {
+                session()->setFlashdata('info', 'Updated Product successfully');
+                return redirect()->to(base_url('/profile')); 
+            }
     }
 
     public function logout()

@@ -18,7 +18,7 @@
                 <?= session()->get('username') ?>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
-                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                    <li><a class="dropdown-item" href="<?= base_url('/profile')?>">Profile</a></li>
                     <li><a class="dropdown-item" href="<?= base_url('favorite') ?>">Favorite</a></li>
                     <li><a class="dropdown-item" href="<?= base_url('logout') ?>">Logout</a></li>
                 </ul>
