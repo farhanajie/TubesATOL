@@ -1,5 +1,5 @@
 <?= $this->extend('_partials/default') ?>
 
 <?= $this->section('content') ?>
-<!-- isi html disini -->
+<?php echo session()->get('username') ?>
 <?= $this->endSection() ?>

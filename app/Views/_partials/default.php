@@ -20,8 +20,8 @@
 </head>
 <body>
     <?= $this->include('_partials/navbar') ?>
-    <div class="container-fluid">
+    <main class="container-fluid">
         <?= $this->renderSection('content'); ?>
-    </div>
+    </main>
 </body>
 </html>
