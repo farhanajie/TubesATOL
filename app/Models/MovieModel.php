@@ -9,23 +9,35 @@ class MovieModel extends Model
     protected $endpoint = 'https://api.themoviedb.org/3';
     protected $api_key = 'b3c0943f99985e1589662b2e5aea2200';
 
-    protected function tmdbGet($url)
+    protected function tmdbGet($url, $params = [])
     {
-        $url = $url . '?api_key=' . $this->api_key . '&region=ID';
+        $url = $url . '?' . http_build_query(array_merge($params, ['api_key' => $this->api_key]));
         $res = file_get_contents($url);
         return json_decode($res);
+    }
+
+    public function getGenres()
+    {
+        $url = $this->endpoint . '/genre/movie/list';
+        return $this->tmdbGet($url);
     }
 
     public function getPopular()
     {
         $url = $this->endpoint . '/movie/popular';
-        return $this->tmdbGet($url);
+        return $this->tmdbGet($url, ['region' => 'ID']);
     }
 
     public function getUpcoming()
     {
         $url = $this->endpoint . '/movie/upcoming';
-        return $this->tmdbGet($url);
+        return $this->tmdbGet($url, ['region' => 'ID']);
+    }
+    
+    public function searchMovies($keyword)
+    {
+        $url = $this->endpoint . '/search/movie';
+        return $this->tmdbGet($url, ['query' => $keyword]);
     }
 
     public function getMovie($id)

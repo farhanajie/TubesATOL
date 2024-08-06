@@ -24,6 +24,16 @@ class Movie extends BaseController
         return view('home', $data);
     }
 
+    public function search()
+    {
+        $keyword = $this->request->getPost('query');
+        $movies = $this->movie_model->searchMovies($keyword);
+        $data = [
+            'movies' => $movies
+        ];
+        return view('movie/search', $data);
+    }
+
     public function movie($id)
     {
         list($movie, $credits) = $this->movie_model->getMovie($id);
