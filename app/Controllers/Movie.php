@@ -15,7 +15,13 @@ class Movie extends BaseController
 
     public function index()
     {
-        return view('home');
+        $popular = $this->movie_model->getPopular();
+        $upcoming = $this->movie_model->getUpcoming();
+        $data = [
+            'popular' => $popular,
+            'upcoming' => $upcoming,
+        ];
+        return view('home', $data);
     }
 
     public function movie($id)

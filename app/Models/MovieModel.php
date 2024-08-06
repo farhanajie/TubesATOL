@@ -11,19 +11,31 @@ class MovieModel extends Model
 
     protected function tmdbGet($url)
     {
-        $url = $url . '?api_key=' . $this->api_key;
+        $url = $url . '?api_key=' . $this->api_key . '&region=ID';
         $res = file_get_contents($url);
         return json_decode($res);
     }
 
-    public function getMovie($id = false)
+    public function getPopular()
+    {
+        $url = $this->endpoint . '/movie/popular';
+        return $this->tmdbGet($url);
+    }
+
+    public function getUpcoming()
+    {
+        $url = $this->endpoint . '/movie/upcoming';
+        return $this->tmdbGet($url);
+    }
+
+    public function getMovie($id)
     {
         $url_movie = $this->endpoint . '/movie/' . $id;
         $url_credits = $this->endpoint . '/movie/' . $id . '/credits';
         return array($this->tmdbGet($url_movie), $this->tmdbGet($url_credits));
     }
 
-    public function getPerson($id = false)
+    public function getPerson($id)
     {
         $url_person = $this->endpoint . '/person/' . $id;
         $url_movies = $this->endpoint . '/person/' . $id . '/movie_credits';
