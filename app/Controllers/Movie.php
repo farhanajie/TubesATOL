@@ -3,14 +3,17 @@
 namespace App\Controllers;
 
 use App\Models\MovieModel;
+use App\Models\FavoriteModel;
 
 class Movie extends BaseController
 {
     protected $movie_model;
+    protected $favorite_model;
 
     public function __construct()
     {
         $this->movie_model = new MovieModel();
+        $this->favorite_model = new FavoriteModel();
     }
 
     public function index()
@@ -37,9 +40,21 @@ class Movie extends BaseController
     public function movie($id)
     {
         list($movie, $credits) = $this->movie_model->getMovie($id);
+        $favorites = $this->favorite_model->where([
+            'user_id' => session()->get('id'),
+        ])->get()->getResult();
+
+        $is_favorite = false;
+        foreach($favorites as $favorite) {
+            if($favorite->movie_id == $id) {
+                $is_favorite = true;
+                break;
+            }
+        } 
         $data = [
             'movie' => $movie,
             'credits' => $credits,
+            'is_favorite' => $is_favorite,
         ];
         return view('movie/movie', $data);
     }

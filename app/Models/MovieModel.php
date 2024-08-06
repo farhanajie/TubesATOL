@@ -16,11 +16,11 @@ class MovieModel extends Model
         return json_decode($res);
     }
 
-    public function getGenres()
-    {
-        $url = $this->endpoint . '/genre/movie/list';
-        return $this->tmdbGet($url);
-    }
+    // public function getGenres()
+    // {
+    //     $url = $this->endpoint . '/genre/movie/list';
+    //     return $this->tmdbGet($url);
+    // }
 
     public function getPopular()
     {

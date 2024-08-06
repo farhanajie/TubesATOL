@@ -21,6 +21,5 @@
             </ul>
         </div>
     </div>
-    <a href="index.php" class="btn btn-primary mt-4">Back to List</a>
 </div>
 <?= $this->endSection() ?>

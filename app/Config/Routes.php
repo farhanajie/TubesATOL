@@ -15,3 +15,6 @@ $routes->post('register/process', 'User::register_process');
 $routes->get('login', 'User::login');
 $routes->post('login/process', 'User::login_process');
 $routes->get('logout', 'User::logout');
+
+$routes->get('favorite', 'Favorite::index');
+$routes->post('favorite/add', 'Favorite::favButton');

@@ -10,13 +10,17 @@ class User extends BaseController
 
     public function __construct()
     {
-        helper('form');
         $this->user_model = new UserModel();
+    }
+
+    public function cekLogin()
+    {
+        return (session()->get('logged_in')) ? true : false;
     }
 
     public function register()
     {
-        return view('user/register');
+        return ($this->cekLogin()) ? redirect()->back() : view('user/register');
     }
 
     public function register_process()
@@ -44,7 +48,7 @@ class User extends BaseController
 
     public function login()
     {
-        return view('user/login');
+        return ($this->cekLogin()) ? redirect()->back() : view('user/login');
     }
 
     public function login_process()
@@ -59,10 +63,11 @@ class User extends BaseController
         if ($check) {
             if (password_verify($password, $check->password)) {
                 session()->set([
+                    'id' => $check->id,
                     'username' => $check->username,
                     'logged_in' => TRUE
                 ]);
-                return redirect()->to(base_url('/'));
+                return redirect()->to(base_url());
             } else {
                 session()->setFlashdata('errors', ['Username/password salah']);
                 return redirect()->back();
@@ -76,6 +81,6 @@ class User extends BaseController
     public function logout()
     {
         session()->destroy();
-        return redirect()->to('login');
+        return redirect()->to(base_url());
     }
 }
